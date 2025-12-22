@@ -1,0 +1,7 @@
+supabase
+google
+python-dotenv
+numpy
+tqdm
+pypdf
+flask
