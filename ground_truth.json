@@ -1,0 +1,97 @@
+[
+    {
+        "query" : "What is FX?",
+        "relevant_chunks" : [
+            {"source": "documents/ForeignExchange.pdf","chunk_id": 9},
+            {"source": "documents/ForeignExchange.pdf","chunk_id": 11} 
+        ]
+    },
+        {
+        "query" : "What fees are charged for FX transactions?",
+        "relevant_chunks" : [
+            {"source":"documents/ForeignExchange.pdf","chunk_id":59},
+           {"source":"documents/ForeignExchange.pdf","chunk_id":66}, 
+           {"source":"documents/ForeignExchange.pdf","chunk_id":67}
+        ]
+    },
+    {
+        "query" : "What is cost of service in FX?",
+        "relevant_chunks" : [
+           { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 0}, 
+           { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 1},
+           { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 2},
+           {"source":"documents/ForeignExchange.pdf","chunk_id":66}
+        ]
+    },
+    {
+        "query" : "How are exchange rates determined?",
+        "relevant_chunks" : [
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 12},
+           { "source": "documents/ForeignExchange.pdf", "chunk_id": 15}, 
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 18},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 22},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 74}
+        ]
+    },
+    {
+        "query" : "What are the specific factors of Value tomorrow rate that determines exchange rate?",
+        "relevant_chunks" : [
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 18},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 19},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 20}
+        ]
+    },
+    {
+        "query" : "Can terminating an FX transaction result in a cost to the customer?",
+        "relevant_chunks" : [
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 56},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 57},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 58},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 38},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 31},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 33},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 59},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 1}
+        ]
+    },
+    {
+        "query" : "What are the risks of FX trading?",
+        "relevant_chunks" : [
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 3},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 31},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 32},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 33},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 34},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 35},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 36},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 37},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 38},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 39},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 40}
+        ]
+    },
+    {
+        "query" : "Can the Cost of Service vary between transactions?",
+        "relevant_chunks" : [
+            { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 0},
+            { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 1},
+            { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 2},
+            { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 3},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 66}
+        ]
+    },
+    {
+        "query" : "What are the uses of FX?",
+        "relevant_chunks" : [
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 11},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 12}
+        ]
+    },
+    {
+        "query" : "Can customers request disclosure of their FX Cost of Service?",
+        "relevant_chunks" : [
+            { "source": "documents/fx-cost-of-service-client-disclosure.pdf", "chunk_id": 3},
+            { "source": "documents/ForeignExchange.pdf", "chunk_id": 66}
+        ]
+    }
+]

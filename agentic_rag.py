@@ -53,7 +53,7 @@ def sparse_retrieve(query: str, top_k: int = 5):
     return contexts
 
 # Hybrid retrieval 
-def hybrid_retrieve(query: str, top_k: int = 5):
+def hybrid_retrieve(query: str, top_k: int = 10):
     query_embedding = embed_text(query)
     response = SUPABASE_CLIENT.rpc(
         "hybrid_match_documents",
@@ -70,7 +70,12 @@ def hybrid_retrieve(query: str, top_k: int = 5):
 def rerank_prompt(query: str, passage: str):
     return f"""
 You are a relevance judge for a retrieval system.
+Read the query and passage carefully, Score relevance strictly.
 
+10 = directly answers the query
+7 - 9 = provides key supporting details
+4 - 6 = related but not sufficient alone
+0 - 3 = irrelevant
 Query:
 {query}
 
@@ -84,8 +89,11 @@ Return ONLY the number.
 def rerank(query, documents,top_k):
     scored_docs = []
     for idx,doc in enumerate(documents): 
-        # print(f"[Candidate {idx+1}]")
-        # print(f"Content Preview: {doc['content'][:120]}...")
+        metadata = doc.get("metadata", {})
+        print(f"[Candidate {idx+1}]")
+        print(f"Content Preview: {doc['content'][:120]}...")
+        print(f"ChunkID: {metadata.get('chunk_id')}")
+        print(f"Source: {metadata.get('source')}\n")
         prompt = rerank_prompt(query, doc['content'])
         response = model.generate_content(prompt, generation_config={"temperature": 0})
 
@@ -93,13 +101,16 @@ def rerank(query, documents,top_k):
             score = float(response.text.strip())
         except:
             score = 0.0
-        # print(f"Relevance Score: {score}\n")
+        print(f"Relevance Score: {score}\n")
         scored_docs.append((score, doc))
-    # print("--- RERANKING RESULT ---")
+    print("--- RERANKING RESULT ---")
     scored_docs.sort(key=lambda x: x[0], reverse=True) # highest relevance first
-    # for rank, (score, doc) in enumerate(scored_docs[:top_k], start=1):
-    #     print(f"Rank {rank} | Score {score}")
-    #     print(f"Snippet: {doc['content'][:120]}...\n")
+    for rank, (score, doc) in enumerate(scored_docs[:top_k], start=1):
+        metadata = doc.get("metadata", {})
+        print(f"Rank {rank} | Score {score}")
+        print(f"Snippet: {doc['content'][:120]}...")
+        print(f"ChunkID: {metadata.get('chunk_id')}")
+        print(f"Source: {metadata.get('source')}\n")
     return [doc for _,doc in scored_docs[:top_k]]  # keep only top_k documentts
 
 # Agentic Features
@@ -152,12 +163,33 @@ def agentic_answer(query: str, model):
             contexts = [doc["content"] for doc in memory["documents"]]
             prompt = build_prompt(query, contexts)
             response = model.generate_content(prompt)
-            memory["answer"] = response.text.strip()
+            answer = response.text.strip()
+            if grounded_check(answer, "\n".join(contexts), model):
+                memory["answer"] = answer
+            else:
+                memory["answer"] = "I’m unable to answer confidently based on the provided disclosure."
 
         elif step == "REFUSE":
             memory["answer"] = "I'm sorry. This question is outside the scope of FX product disclosures."
     
     return memory["answer"]
+
+def grounded_check(answer, contexts, model):
+    prompt = f"""
+        Is the following answer fully supported by the context?
+        Answer YES or NO.
+
+        Context:
+        {contexts}
+
+        Answer:
+        {answer}
+    """
+    response = model.generate_content(prompt, generation_config={"temperature": 0})
+    print("\n--- Grounded Check Response ---")
+    print(response.text.strip())
+    return "YES" in response.text.upper()
+
 
 # Prompt Building 
 def build_prompt(query: str, contexts: list):
