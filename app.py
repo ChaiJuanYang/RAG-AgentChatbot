@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify, render_template
 from supabase import Client, create_client
 from dotenv import load_dotenv
-from app_rag import answer_query
+from app_rag import agentic_answer
 import google.generativeai as genai
 
 
@@ -28,7 +28,7 @@ def chat():
     if not query:
         return jsonify({"error": "Empty message"}), 400
 
-    answer = answer_query(query, supabase, model)
+    answer = agentic_answer(query, supabase, model)
     return jsonify({"answer": answer})
 
 if __name__ == "__main__":

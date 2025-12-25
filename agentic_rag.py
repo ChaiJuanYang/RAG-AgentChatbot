@@ -131,6 +131,7 @@ Example:
 Query:
 {query}
 """
+
 def plan(query, model): 
     response = model.generate_content(
         plan_prompt(query),
@@ -167,7 +168,7 @@ def agentic_answer(query: str, model):
             if grounded_check(answer, "\n".join(contexts), model):
                 memory["answer"] = answer
             else:
-                memory["answer"] = "I’m unable to answer confidently based on the provided disclosure."
+                memory["answer"] = "I'm unable to answer confidently based on the provided disclosure."
 
         elif step == "REFUSE":
             memory["answer"] = "I'm sorry. This question is outside the scope of FX product disclosures."
